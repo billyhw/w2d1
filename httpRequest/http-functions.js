@@ -22,7 +22,7 @@ var https = require("https");
     response.on('end', function () {
       console.log('Response stream complete. Total ', numChunks, ' chunks received.');
       console.log('There are ', numError, ' errors found during the streaming.');
-      console.log(dataBuffer);
+      callback(dataBuffer);
       });
 
     // the callback is invoked when all of the data has been received
@@ -30,7 +30,7 @@ var https = require("https");
     var numError = 0;
     response.on('error', function () {
       numError +=  1;
-      callback('Error Received. Please be careful');
+      console.log('Error Received. Please be careful');
     });
 
     // Note that this is unnecessary, this will not be output.
