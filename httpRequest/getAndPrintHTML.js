@@ -1,10 +1,10 @@
-function getAndPrintHTMLChunks () {
+var https = require("https");
 
-  var https = require('https');
+function getAndPrintHTML () {
 
   var requestOptions = {
     host: 'sytantris.github.io',
-    path: '/http-examples/step1.html'
+    path: '/http-examples/step2.html'
   };
 
   // notice that https.get takes a callback with one parameter -
@@ -16,16 +16,18 @@ function getAndPrintHTMLChunks () {
 
     // the callback is invoked when a `data` chunk is received
     var numChunks = 0;
+    var dataBuffer = [];
     response.on('data', function (data) {
       numChunks += 1;
-      console.log("line: ", numChunks, ":", data, "\n");
+      dataBuffer.push(data) ;
+      //console.log("line: ", numChunks, ":", data, "\n");
     });
-
 
     // the callback is involved if error found
     response.on('end', function () {
       console.log('Response stream complete. Total ', numChunks, ' chunks received.');
       console.log('There are ', numError, ' errors found during the streaming.');
+      console.log(dataBuffer);
       });
 
     // the callback is invoked when all of the data has been received
@@ -42,6 +44,7 @@ function getAndPrintHTMLChunks () {
     // })
 
   });
+
 }
 
-getAndPrintHTMLChunks()
+getAndPrintHTML();
